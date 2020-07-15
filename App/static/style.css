@@ -1,0 +1,26 @@
+.wraper{
+    width: 1450px;
+    margin: 0 auto;
+}
+.border-right {
+    border-right: 2px solid rgb(3, 0, 0);
+}
+.borders {
+    border-left: 2px solid rgb(3, 0, 0);
+    border-right: 2px solid rgb(3, 0, 0);
+    margin: -1px;
+}
+.border-left {
+    border-left: 2px solid rgb(3, 0, 0);
+}
+.cool-button {
+    color: white;
+    padding: 8px 8px;
+    border-radius: 5px;
+    background: #f857a6;
+    background: -webkit-linear-gradient(to right,#ff5858,#f857a6);
+    background: linear-gradient(to right,#ff5858,#f857a6);
+    box-shadow: 0 10px 10px -2px rgba(0,0,0,.25);
+    cursor:pointer;
+    border: 0 !important;
+}

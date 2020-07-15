@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="shortcut icon" href="../static/images/weblogo.ico" type="image/icon">
+
+    <title>Wind Turbine Power Prediction</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+	      <img style="border-radius: 100%;margin-top: 1px;margin-right: 5px;margin-bottom: 5px;" src="../static/images/logo.png" alt="logo"> 
+          <a class="navbar-brand" href="/"><h4 style="font-family: Comic Sans MS;"><i>Turbine Power Prediction</i></h4></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <button class="nav-link btn-outline-danger btn-lg px-5 m-3" style="border: 3px solid red;" data-toggle="modal" data-target="#staticBackdrop"><i style="color: rgb(70, 0, 0);"><b>Predict Now</b></i> </button>
+              </li>
+              <li class="nav-item ">
+                <button class="nav-link btn-outline-warning btn-lg px-5 m-3" style="border: 3px solid yellow;" data-toggle="modal" data-target="#staticContact"><i style="color: green;"><b>Contact Us</b></i> </button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link btn-outline-info btn-lg m-3 px-5" style="border: 3px solid blue;"><a style="color: black;" href="https://www.linkedin.com/in/sujoy-nandi-2892931a2/"
+                    target="_blank"><b><i>About
+                        Us</i> <i style="font-size:21px" class="fa btn-outline-primary">&#xf08c;</i></b></a></button>
+              </li>
+            </ul>
+          </div>
+      </nav>
+      
+          <div style="background-color: rgb(203, 253, 253);">
+            <div class="row">
+              <div class="col-sm-5 border-right">
+                <div class="card">
+                  <div class="card-body">
+
+                    <h1 style="font-weight: 750"><i>Predicted Details :</i></h1><br>
+                    <h4> The best time to utilize the energy from wind farm to get maximum Output Power will be :</h4>
+                    <hr style="height:1px;border:none;color:#333;background-color:#333;" />
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead class="thead">
+                          <tr class="bg-warning">
+                            <th scope="col">Date (YYYY-MM-DD)</th>
+                            <th scope="col">Day Name</th>
+                            <th scope="col">Time (24-hour Format)</th>
+                            <th scope="col">Output Power (KW)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">{{Date}}</th>
+                            <td><b>{{dayName}}</b></td>
+                            <td><b>{{Time}}</b></td>
+                            <td><b>{{outputPower}}</b></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <hr style="height:1px;border:none;color:#333;background-color:#333;" /><br>
+              
+                    <h6 class="" style="font-weight: 500">So, The maximum predicted Turbine Output Power Will be : <input type="text"
+                        style="font-weight: 650;color: green;font-size:20px;" size="13" value="{{outputPower}}  KiloWatt" readonly></h6>
+                    <br><br><br>
+                    <div class="text-center">
+                      <p style="font-size: 1.1rem;"><b>Here is the List of all Predicted Power for Next {{hour}} Hours : </b> <button id="toggleVisibilityButton" type="button" class="btn-sm" style="background-color: rgb(255, 138, 177);border-radius: 20px;"><b>Show / Hide</b></button></p>
+                      <div class="table-responsive" id="displaytable" style="display:none;">
+                        <table class="table table-bordere">
+                          <thead class="thead-dark">
+                            <tr>                    
+                              <th scope="col">Date-Time</th>
+                              <th scope="col">Predicted Power</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                              {% for item in lineChartDataRaw %}
+                                <tr>
+                                  <th scope="row">{{item[0]}}</th>
+                                  <td><b>{{item[1]}}</b></td>
+                                </tr>
+                              {% endfor %}                         
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-sm-7 border-left">
+                <div class="card" style="background-color: rgb(36, 33, 33);">
+                  <div class="card-body">
+
+                    <h1 style="font-weight: 750;color: white;"><i>Visualization of Predicted Details :</i></h1><br><br>
+                    <h4 style="color: pink;"> <i><b>Variation of predicted output power for upcoming {{hour}} hours : </b></i> </h4>
+
+                    <div id="chart_div" class="m-2" style="width: auto; height: 600px;"></div><br><br><br>
+              
+                    <h4 style="color: pink;font-size: 1.4rem;"> <i><b>Variation of Weather Condition in the Site/Wind-Farm for upcoming {{hour}} hours :
+                        </b></i> </h4>
+              
+                    <div id="columnchart_material" class="m-2" style="width: auto; height: 600px;"></div><br>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+      
+            <!-- Modal Predict -->
+            <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+              <div class="modal-content" style="background-color: rgb(248, 150, 150);">
+                  <div class="modal-header">
+                  <h4 class="modal-title text-center" id="staticBackdropLabel"><i><b>Predict Turbine Output Power</b></i></h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  </div><br>
+                  <div class="modal-body"> 
+                      <form action="/result" method="POST">    
+                          <div class="row mx-auto">
+                            <label for="inputState"><b><i>* Choose the Time Range for the Prediction</i></b></label>
+                            <select required class="form-control" name="hours" id="hours">
+                              <option value="25">72 hours</option>
+                              <option value="21">60 hours</option>
+                              <option value="17">48 hours</option>
+                              <option value="13">36 hours</option>
+                              <option value="9">24 hours</option>
+                              <option value="5">12 hours</option>
+                          </select><br><br><br>
+                          </div>
+                          <div class="row mx-auto"> 
+                              <label for="redius"><b><i>* Enter Rotor Redius of Turbine (Unit 'meter')</i></b></label>
+                              <input type="number" class="form-control" placeholder="e.g. - 50" style="font-style: italic;" name="redius"
+                                  required="required" min="0" max="1500" id="redius"><br><br><br>
+                          </div>
+                          <div class="row mx-auto">    
+                              <label for="efficiency"><b><i>* Enter Efficiency of Turbine ( % )</i></b></label>
+                              <input type="number" class="form-control" placeholder="e.g. - 30" style="font-style: italic;" name="efficiency"
+                                  required="required" max="100" min="0" id="efficiency">
+                          </div><br><br>
+                          <div class="col text-center">
+                              <button type="submit" class="btn btn-success btn-lg" style="border: 1px solid black;" name="predict" id="predict"><b>Predict</b></button>
+                            </div>
+                      </form><br>
+                      <div class="text-center" style="font-size: 15px;">
+                        <p>NOTE : All fields marked with * are mandatory</p>
+                      </div>
+                  </div>
+              </div>
+              </div>
+            </div>
+
+            <!-- Modal contact-->
+            <div class="modal fade" id="staticContact" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content" style="background-color: gold;">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-center" id="staticBackdropLabel"><i><b>Contact Us</b></i></h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      
+                        <form action="/result" method="POST">
+                              <div class="row mx-auto">
+                                <label for="name"><b>* Full Name </b></label>
+                                <input type="text" class="form-control" placeholder="Enter Your Name" required="required" name="name"
+                                  id="name">
+                              </div><br>
+                              <div class="row mx-auto">
+                                <label for="email"><b>* Email ID</b> </label>
+                                <input type="email" class="form-control" placeholder="Enter Your Email" required="required" name="email"
+                                  id="email">
+                              </div><br>
+                              <div class="row mx-auto">
+                                <label for="mobile"><b>Contact No</b> </label>
+                                <input type="number" class="form-control" placeholder="Enter Your Mobile No" maxlength="10" size="10"
+                                  name="mobile" id="mobile">
+                              </div><br>
+                            <div class="row mx-auto">
+                              <label for="message"><b>* Your Message / Your Feedback</b></label>
+                              <textarea class="form-control" id="message" name="message" required="required" rows="3"></textarea>
+                            </div><br><br>
+                            <div class="text-center">
+                              <button type="submit" name="contact" class="btn btn-primary btn-lg" id="contact"><b>Submit</b></button>
+                            </div>
+                          </form><br>
+                          <div class="text-center" style="font-size: 15px;">
+                            <p>NOTE : All fields marked with * are mandatory</p>
+                          </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            
+            <hr class="my-4">
+            <div class="text-center" style="margin-bottom: 25px;">
+              <p>Thanks For Visiting and Please Visit Again :)</p>
+              <a class="btn btn-primary btn-lg" href="/" role="button">Back to Home</a>
+            </div>
+
+          </div>
+
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- Importing javascript to plot graph -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+      google.charts.load('current', { packages: ['corechart', 'line'] });
+      google.charts.setOnLoadCallback(drawBackgroundColor);
+
+      function drawBackgroundColor() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'X');
+        data.addColumn('number', 'Predicted-Power (KW)');
+
+        data.addRows(
+          {{ lineChartData| safe}}
+          );
+
+      var options = {
+        title: 'Predicted OutPut Power Curve for Next {{hour}} hours',
+        hAxis: {
+          title: 'Date-Time ', 
+        },
+        vAxis: {
+          title: 'Power (KW) '
+        },
+        backgroundColor: '#C0C0C0'
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+      }
+
+    </script>
+
+    <script type="text/javascript">
+      google.charts.load('current', { 'packages': ['bar'] });
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(
+          {{ barChartData| safe}}
+        );
+
+      var options = {
+        chart: {
+          title: 'Weather Forecast Data',
+          subtitle: 'Variation of weather forecasting data for : Next {{hour}} hours',
+        },
+        backgroundColor: 'white'
+      };
+
+      var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+      chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+
+    </script>
+
+    <script>
+
+      document.getElementById("toggleVisibilityButton").addEventListener("click", function(button) {    
+        if (document.getElementById("displaytable").style.display === "none"){
+          document.getElementById("displaytable").style.display = "block";
+        }
+        else document.getElementById("displaytable").style.display = "none";
+      });  
+
+    </script>
+  
+  </body>
+</html>
