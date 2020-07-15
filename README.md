@@ -54,7 +54,7 @@ Here is some technologies and services that are used to develop this Web App.
 <img width="750" src="App/Server/__pycache__/img/photo.png" alt="services">
 
 ![python](https://www.freepngimg.com/thumb/python_logo/5-2-python-logo-png-image-thumb.png)
-<img align="right" src="https://lh3.googleusercontent.com/0mn9KM1zMhzr9hsNFevoKY2knAZxL5Dox3xcGtWSe7ExslA-FDPJaygrChnQzw2TbUKqag=s170" alt="bootstrap 4">
+<img align="right" src="App/Server/__pycache__/img/bootstrap.png" alt="bootstrap 4">
 
 <center><img float="center" src="App/Server/__pycache__/img/ibmcloud.png" alt="ibmCloud"></center>
 <img align="right" src="https://19yw4b240vb03ws8qm25h366-wpengine.netdna-ssl.com/wp-content/uploads/OPENWEATHER-300x136.png" alt="openweatheramp">

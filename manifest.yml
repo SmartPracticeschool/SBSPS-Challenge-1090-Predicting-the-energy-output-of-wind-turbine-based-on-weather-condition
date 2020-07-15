@@ -2,3 +2,4 @@
 applications:
 - name: wind-turbine-power-prediction
   memory: 256M
+  
