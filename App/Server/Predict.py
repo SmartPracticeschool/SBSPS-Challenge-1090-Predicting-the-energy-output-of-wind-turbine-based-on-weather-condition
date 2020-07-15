@@ -16,3 +16,4 @@ def predict(wind_speed,theoreticalPower):
     actualPower = model.predict(vector)
 
     return list(actualPower)
+

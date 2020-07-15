@@ -36,6 +36,7 @@ def main(wind_speed,theory_power):
 
 
 
+
 if __name__ == "__main__":
     # Manually define the values of wind_speed,theory_power
     wind_speed,theory_power = 5,1520

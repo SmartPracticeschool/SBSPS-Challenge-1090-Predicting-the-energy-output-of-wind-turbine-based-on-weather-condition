@@ -16,3 +16,4 @@ def get_BarChartData(date_time,wind_speed,wind_deg,humidity):
         barChartData.append(list((a,b,c,d)))
 
     return barChartData
+

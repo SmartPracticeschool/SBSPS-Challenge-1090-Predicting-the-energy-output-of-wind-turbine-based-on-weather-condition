@@ -8,6 +8,7 @@ CLOUDANT_URL = "Enter Your CLOUDANT URL"
 
 
 
+
 # Admin credentials ...
 
 DATABASE_NAME = "Your Database Name"
