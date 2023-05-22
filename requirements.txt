@@ -1,7 +1,7 @@
 Flask==1.1.2
 cloudant==2.13.0
 xgboost==1.1.1
-requests==2.24.0
+requests==2.31.0
 DateTime==4.3
 numpy>=1.19.0
 pandas==1.0.5
